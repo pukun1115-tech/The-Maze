@@ -17,7 +17,7 @@ document.addEventListener("keyup", e => keys[e.key] = false);
 
 const player = 
 {
-    pos : {x:0, y:0},
+    pos : {x : 0, y : 0},
     size : 8
 };
 
@@ -34,7 +34,7 @@ function move()
 {
     if(keys["w"])
     {
-        player.pos.y +=5;
+        player.pos.y +=0;
     }
 }
 

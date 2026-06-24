@@ -24,6 +24,7 @@ loop();
 function loop(){
     move();
     playerdraw();
+    mazedraw();
     requestAnimationFrame(loop);
 }
 
@@ -33,11 +34,11 @@ function move(){
     let nextPlayerY = player.pos.y;
     
     if(keys["w"]){
-        nextPlayerY += speed;
+        nextPlayerY -= speed;
     }
 
     if(keys["s"]){
-        nextPlayerY -= speed;
+        nextPlayerY += speed;
     }
 
     if(keys["d"]){
@@ -73,5 +74,17 @@ function checkCollision(newX,newY){
         }
     }
     return false;
+}
+function mazedraw(){
+    for(let my = 0;my < 80;my++){
+        for(let mx = 0;mx<80;mx++){
+            if(maze[my][mx]===1){
+                ctx.fillRect(mx * 16 - player.pos.x,
+                             my * 16 - player.pos.y,
+                             16,
+                             16);
+            }
+        }
+    }
 }
 

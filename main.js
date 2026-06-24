@@ -59,8 +59,8 @@ function playerdraw(){
 }
 
 function checkCollision(newX,newY){
-    for(let my = 0;my < 80;my++){
-        for(let mx = 0;mz < 8;mx++){
+    for(let my = 0;my < 8;my++){
+        for(let mx = 0;mx < 8;mx++){
             if(maze[my][mx]===1){
                 const wx = mx * 16;
                 const wy = my * 16;
@@ -76,11 +76,11 @@ function checkCollision(newX,newY){
     return false;
 }
 function mazedraw(){
-    for(let my = 0;my < 80;my++){
-        for(let mx = 0;mx<80;mx++){
+    for(let my = 0;my < 8;my++){
+        for(let mx = 0;mx<8;mx++){
             if(maze[my][mx]===1){
-                ctx.fillRect(mx * 16 - player.pos.x,
-                             my * 16 - player.pos.y,
+                ctx.fillRect(mx * 16 - player.pos.x - 8,
+                             my * 16 - player.pos.y - 8,
                              16,
                              16);
             }

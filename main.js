@@ -79,6 +79,7 @@ function mazedraw(){
     for(let my = 0;my < 8;my++){
         for(let mx = 0;mx<8;mx++){
             if(maze[my][mx]===1){
+                ctx.fillStyle = "white";
                 ctx.fillRect(mx * 16 - player.pos.x - 8,
                              my * 16 - player.pos.y - 8,
                              16,

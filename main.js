@@ -19,7 +19,7 @@ document.addEventListener("keyup", e => {
 });
 
 const player = {
-    pos : {x : 320, y : 64},//左上の座標
+    pos : {x : 80.5, y : 80.5},//左上の座標
     size : 32
 };
 
@@ -72,10 +72,10 @@ function checkCollision(newX, newY){
                 const wx = mx * mazeSize;
                 const wy = my * mazeSize;
                 if(
-                    newX < mx * mazeSize + mazeSize&&
-                    newX + player.size>mx * mazeSize&&
-                    newY < my * mazeSize + mazeSize &&
-                    newY + player.size > my * mazeSize
+                    newX - 0.5 < wx + mazeSize + 0.5 &&
+                    newX + player.size + 0.5 > wx - 0.5 &&
+                    newY - 0.5 < wy + mazeSize +0.5 &&
+                    newY + player.size + 0.5> wy - 0.5
                 ){
                  return true;
                 }

@@ -16,7 +16,7 @@ document.addEventListener("keyup", e => keys[e.key] = false);
 
 const player = {
     pos : {x : 32, y : 16},//左上の座標
-    size : 8
+    size : 16
 };
 
 loop();
@@ -62,12 +62,12 @@ function checkCollision(newX, newY){
     for(let my = 0; my < 8; my++){
         for(let mx = 0; mx < 8; mx++){
             if(maze[my][mx]===1){
-                const wx = mx * 16;
-                const wy = my * 16;
+                const wx = mx * 32;
+                const wy = my * 32;
                 if(newX > wx &&
-                   newX < wx + 16 &&
+                   newX < wx + 32 &&
                    newY > wy &&
-                   newY < wy + 16){
+                   newY < wy + 32){
                  return true;
                 }
             }
@@ -80,10 +80,10 @@ function mazedraw(){
         for(let mx = 0; mx < 8; mx++){
             if(maze[my][mx]===1){
                 ctx.fillStyle = "#FFFFFF";
-                ctx.fillRect(mx * 16 - player.pos.x + (canvas.width / 2),
-                             my * 16 - player.pos.y + (canvas.height / 2),
-                             16,
-                             16);
+                ctx.fillRect(mx * 32 - player.pos.x + (canvas.width / 2),
+                             my * 32 - player.pos.y + (canvas.height / 2),
+                             32,
+                             32);
             }
         }
     }

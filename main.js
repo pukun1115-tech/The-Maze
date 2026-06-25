@@ -19,8 +19,8 @@ document.addEventListener("keyup", e => {
 });
 
 const player = {
-    pos : {x : 80.5, y : 80.5},//左上の座標
-    size : 32
+    pos : {x : 160, y : 160},//左上の座標
+    size : 64
 };
 
 loop();
@@ -35,7 +35,7 @@ function loop(){
 }
 
 function move(){
-    const speed = 2;
+    const speed = 1.5;
     let nextPlayerX = player.pos.x;
     let nextPlayerY = player.pos.y;
     
@@ -61,7 +61,7 @@ function move(){
 
 function playerdraw(){
     ctx.fillStyle = "#0040ff";
-    ctx.fillRect((canvas.width) / 2 - 0.5, (canvas.height) / 2 - 0.5, player.size + 1, player.size + 1);
+    ctx.fillRect((canvas.width) / 2, (canvas.height) / 2, player.size, player.size);
 }
 
 function checkCollision(newX, newY){
@@ -72,10 +72,10 @@ function checkCollision(newX, newY){
                 const wx = mx * mazeSize;
                 const wy = my * mazeSize;
                 if(
-                    newX - 0.5 < wx + mazeSize + 0.5 &&
-                    newX + player.size + 0.5 > wx - 0.5 &&
-                    newY - 0.5 < wy + mazeSize +0.5 &&
-                    newY + player.size + 0.5> wy - 0.5
+                    newX < wx + mazeSize + 0.4 &&
+                    newX + player.size > wx - 0.4 &&
+                    newY < wy + mazeSize +0.4 &&
+                    newY + player.size > wy - 0.4
                 ){
                  return true;
                 }
@@ -88,11 +88,13 @@ function mazedraw(){
     for(let my = 0; my < maze.length; my++){
         for(let mx = 0; mx < maze[0].length; mx++){
             if(maze[my][mx]===1){
-                ctx.fillStyle = "#FFFFFF";
-                ctx.fillRect(mx * mazeSize - player.pos.x + (canvas.width / 2) - 0.5,
-                             my * mazeSize - player.pos.y + (canvas.height / 2) - 0.5,
-                             mazeSize + 1,
-                             mazeSize + 1);
+                ctx.fillStyle = "#808080";
+                ctx.fillRect(
+                    mx * mazeSize - player.pos.x + (canvas.width / 2) - 0.4,
+                    my * mazeSize - player.pos.y + (canvas.height / 2) - 0.4,
+                    mazeSize + 0.8,
+                    mazeSize + 0.8
+                );
             }
         }
     }

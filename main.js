@@ -16,7 +16,7 @@ document.addEventListener("keyup", e => keys[e.key] = false);
 
 const player = {
     pos : {x : 320, y : 0},//左上の座標
-    size : 16
+    size : 32
 };
 
 loop();

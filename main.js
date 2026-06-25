@@ -39,19 +39,19 @@ function move(){
     let nextPlayerX = player.pos.x;
     let nextPlayerY = player.pos.y;
     
-    if(keys["keyW"]){
+    if(keys["KeyW"]){
         nextPlayerY -= speed;
     }
 
-    if(keys["keyS"]){
+    if(keys["KeyS"]){
         nextPlayerY += speed;
     }
 
-    if(keys["keyD"]){
+    if(keys["KeyD"]){
         nextPlayerX += speed;
     }
 
-    if(keys["keyA"]){
+    if(keys["KeyA"]){
         nextPlayerX -= speed;
     }
 
@@ -61,7 +61,7 @@ function move(){
 
 function playerdraw(){
     ctx.fillStyle = "#0040ff";
-    ctx.fillRect((canvas.width) / 2 - 1, (canvas.height) / 2 - 1, player.size + 2, player.size + 2);
+    ctx.fillRect((canvas.width) / 2 - 0.5, (canvas.height) / 2 - 0.5, player.size + 1, player.size + 1);
 }
 
 function checkCollision(newX, newY){
@@ -85,14 +85,14 @@ function checkCollision(newX, newY){
     return false;
 }
 function mazedraw(){
-    for(let my = 0; my < 8; my++){
-        for(let mx = 0; mx < 8; mx++){
+    for(let my = 0; my < maze.length; my++){
+        for(let mx = 0; mx < maze[0].length; mx++){
             if(maze[my][mx]===1){
                 ctx.fillStyle = "#FFFFFF";
-                ctx.fillRect(mx * mazeSize - player.pos.x + (canvas.width / 2) - 1,
-                             my * mazeSize - player.pos.y + (canvas.height / 2) - 1,
-                             mazeSize + 2,
-                             mazeSize + 2);
+                ctx.fillRect(mx * mazeSize - player.pos.x + (canvas.width / 2) - 0.5,
+                             my * mazeSize - player.pos.y + (canvas.height / 2) - 0.5,
+                             mazeSize + 1,
+                             mazeSize + 1);
             }
         }
     }

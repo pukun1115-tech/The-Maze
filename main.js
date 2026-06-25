@@ -1,4 +1,5 @@
-const canvas = document.getElementById("canvas");
+const gameCanvas = document.getElementById("canvas");
+const uiCanvas = document.getElementById("ui");
 const ctx = canvas.getContext("2d");
 
 window.addEventListener("resize", resize);
@@ -6,8 +7,8 @@ window.addEventListener("resize", resize);
 resize();
 
 function resize(){    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    gameCanvas.width = uiCanvas.width = window.innerWidth;
+    gameCanvas.height = uiCanvas.height = window.innerHeight;
 }
 
 const keys = {};

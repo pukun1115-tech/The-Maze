@@ -22,6 +22,8 @@ const player = {
     size : 32
 };
 
+const mazeSize = 64;
+
 loop();
 
 function loop(){
@@ -36,6 +38,7 @@ function drawGame(){
     playerDraw();
     mazeDraw();
 }
+
 function move(){
     const speed = 0.5;
     let nextPlayerX = player.pos.x;
@@ -63,7 +66,7 @@ function move(){
 
 function playerDraw(){
     g.fillStyle = "#FFFFFF";
-    g.fillRect((canvas.width) / 2, (canvas.height) / 2, player.size, player.size);
+    g.fillRect((gameCanvas.width) / 2, (gameCanvas.height) / 2, player.size, player.size);
 }
 
 function checkCollision(newX, newY){

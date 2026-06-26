@@ -23,13 +23,15 @@ const player = {
     size : 64
 };
 
+let tap = false;
+
 canvas.addEventListener("touchstart", e => {
     let t = e.touches[0];
-    let tap = true;
+    tap = true;
 });
 
 canvas.addEventListener("touchend", e => {
-    let tap = false;
+    tap = false;
 });
 
 loop();
@@ -62,6 +64,10 @@ function move(){
 
     if(keys["KeyA"]){
         nextPlayerX -= speed;
+    }
+
+    if(tap){
+        player.pos.x +=10;
     }
     
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;

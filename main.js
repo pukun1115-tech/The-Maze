@@ -63,10 +63,6 @@ function move(){
     if(keys["KeyA"]){
         nextPlayerX -= speed;
     }
-
-    if(tap){
-        player.pos.x += 0;
-    }
     
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;
     if(!checkCollision(player.pos.x, nextPlayerY)) player.pos.y = nextPlayerY;

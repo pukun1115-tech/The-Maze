@@ -27,6 +27,7 @@ let tap = false;
 
 canvas.addEventListener("touchstart", e => {
     let t = e.touches[0];
+    player.pos.y += 5;
     tap = true;
 });
 
@@ -67,7 +68,7 @@ function move(){
     }
 
     if(tap){
-        player.pos.x +=10;
+        player.pos.x += 10;
     }
     
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;

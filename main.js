@@ -29,6 +29,10 @@ canvas.addEventListener("touchstart", (e) => {
     tap = true;
 });
 
+canvas.addEventListener("touchmove", (e) => {
+    tap = true;
+});
+
 canvas.addEventListener("touchend", (e) => {
     tap = false;
 });

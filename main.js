@@ -25,13 +25,12 @@ const player = {
 
 let tap = false;
 
-canvas.addEventListener("touchstart", e => {
-    let t = e.touches[0];
+canvas.addEventListener("touchstart", (e) => {
     player.pos.y += 5;
     tap = true;
 });
 
-canvas.addEventListener("touchend", e => {
+canvas.addEventListener("touchend", (e) => {
     tap = false;
 });
 

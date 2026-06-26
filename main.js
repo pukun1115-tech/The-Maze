@@ -18,6 +18,16 @@ document.addEventListener("keyup", e => {
     keys[e.code] = false;
 });
 
+canvas.addEventListener("touchstart", e => {
+    let t = e.touches[0];
+    let touchpos = getPos(t);
+    let tap = true;
+});
+
+canvas.addEventListener("touchend", () => {
+    let tap = false;
+});
+
 const player = {
     pos : {x : 160, y : 160},//左上の座標
     size : 64
@@ -53,6 +63,11 @@ function move(){
 
     if(keys["KeyA"]){
         nextPlayerX -= speed;
+    }
+
+    if(tap){
+        nextPlayerX += 0.1;
+        nextPlayerY += 0.1;
     }
 
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;

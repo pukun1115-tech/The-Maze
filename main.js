@@ -24,7 +24,11 @@ const player = {
 };
 
 canvas.addEventListener("touchstart", e => {
-    player.pos.x += 1;
+    player.pos.x += 0;
+});
+
+canvas.addEventListener("touchend", e => {
+    player.pos.x +=10;
 });
 
 loop();

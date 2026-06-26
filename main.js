@@ -28,7 +28,7 @@ canvas.addEventListener("touchstart", e => {
 });
 
 canvas.addEventListener("touchend", e => {
-    player.pos.x +=10;
+    player.pos.x += 10;
 });
 
 loop();

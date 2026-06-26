@@ -65,7 +65,7 @@ function move(){
     }
 
     if(tap){
-        player.pos.x += 10;
+        player.pos.x += 0;
     }
     
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;

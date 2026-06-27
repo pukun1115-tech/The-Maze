@@ -23,6 +23,20 @@ const player = {
     size : 64
 };
 
+let tap = false;
+
+canvas.addEventListener("touchstart", (e) => {
+    tap = true;
+});
+
+canvas.addEventListener("touchmove", (e) => {
+    tap = true;
+});
+
+canvas.addEventListener("touchend", (e) => {
+    tap = false;
+});
+
 loop();
 
 function loop(){
@@ -35,7 +49,7 @@ function loop(){
 }
 
 function move(){
-    const speed = 1.5;
+    let speed = keys["ShiftLeft"] ? 3 : 1.5;
     let nextPlayerX = player.pos.x;
     let nextPlayerY = player.pos.y;
     
@@ -55,6 +69,10 @@ function move(){
         nextPlayerX -= speed;
     }
 
+    if(tap){
+        player.pos.x += 1;
+    }
+    
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;
     if(!checkCollision(player.pos.x, nextPlayerY)) player.pos.y = nextPlayerY;
 }

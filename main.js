@@ -54,7 +54,7 @@ function clear(){
     ctx.clearRect(0, 0 ,canvas.width, canvas.height);
 
     ctx.fillStyle = "#ffffff";
-    ctx.font = "100px Futura";
+    ctx.font = "100px Comic Sans MS";
     ctx.textAlign = "center";
     ctx.fillText("CLEAR!", canvas.width/2, canvas.height/2);
 

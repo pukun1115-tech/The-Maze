@@ -23,27 +23,13 @@ const player = {
     size : 64
 };
 
-let tap = false;
-
-canvas.addEventListener("touchstart", (e) => {
-    tap = true;
-});
-
-canvas.addEventListener("touchmove", (e) => {
-    tap = true;
-});
-
-canvas.addEventListener("touchend", (e) => {
-    tap = false;
-});
-
 const items = {
-    key1:false,
-    key2:false
+    key1: false,
+    key2: false
 };
 
 let cleared = false;
-let goalHue = 0;
+let goalHue = 0;//ゴールの色
 
 loop();
 
@@ -65,10 +51,10 @@ function loop(){
 }
 
 function clear(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0, 0 ,canvas.width, canvas.height);
 
     ctx.fillStyle = "#ffffff";
-    ctx.font = "100px sans-serif";
+    ctx.font = "100px Futura";
     ctx.textAlign = "center";
     ctx.fillText("CLEAR!", canvas.width/2, canvas.height/2);
 
@@ -94,10 +80,6 @@ function move(){
 
     if(keys["KeyA"]){
         nextPlayerX -= speed;
-    }
-
-    if(tap){
-        player.pos.x += 1;
     }
     
     if(!checkCollision(nextPlayerX, player.pos.y)) player.pos.x = nextPlayerX;

@@ -38,22 +38,45 @@ canvas.addEventListener("touchend", (e) => {
 });
 
 const items = {
-    key:false
+    key1:false,
+    key2:false
 };
+
+let cleared = false;
+let goalHue = 0;
 
 loop();
 
 function loop(){
+    if(cleared){
+        clear();
+    }
+    else{
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        goalHue = (goalHue + 1) % 360;
+
+        move();
+        mazedraw();
+        playerdraw();
+        itemDraw();
+        requestAnimationFrame(loop);
+    }
+}
+
+function clear(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    move();
-    playerdraw();
-    mazedraw();
-    requestAnimationFrame(loop);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "100px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("CLEAR!", canvas.width/2, canvas.height/2);
+
+    requestAnimationFrame(clear);
 }
 
 function move(){
-    let speed = keys["ShiftLeft"] ? 6 : 1.5;
+    let speed = keys["ShiftLeft"] ? 3 : 1.5;
     let nextPlayerX = player.pos.x;
     let nextPlayerY = player.pos.y;
     
@@ -81,6 +104,27 @@ function move(){
     if(!checkCollision(player.pos.x, nextPlayerY)) player.pos.y = nextPlayerY;
 }
 
+function itemDraw(){
+    let x = 30;
+    if(items.key1){
+        ctx.fillStyle = "#ffff00";
+
+        ctx.beginPath();
+        ctx.arc(x,30,20,0,Math.PI * 2);
+        ctx.fill();
+
+        x += 60;
+    }
+
+    if(items.key2){
+        ctx.fillStyle = "#ff00ff";
+
+        ctx.beginPath();
+        ctx.arc(x,30,20,0,Math.PI * 2);
+        ctx.fill();
+    }
+}
+
 function playerdraw(){
     ctx.fillStyle = "#00ff40";
     ctx.fillRect((canvas.width) / 2, (canvas.height) / 2, player.size, player.size);
@@ -90,8 +134,8 @@ function checkCollision(newX, newY){
 
     for(let my = 0; my < maze.length; my++){
         for(let mx = 0; mx < maze[0].length; mx++){
-            const wx = mx * mazeSize;
-            const wy = my * mazeSize;
+            let wx = mx * mazeSize;
+            let wy = my * mazeSize;
             if(maze[my][mx] === 0) continue;
             if(
                 newX < wx + mazeSize + 0.4 &&
@@ -104,18 +148,41 @@ function checkCollision(newX, newY){
                 }
 
                 if(maze[my][mx] === 2){
-                    items.key = true;
+                    items.key1 = true;
                     maze[my][mx] = 0;
+                    continue;
                 }
 
-                if(maze[my][mx] === 3)
-                {
-                    if(items.key){
+                if(maze[my][mx] === 3){
+                    if(items.key1){
+                        items.key1 = false;
                         maze[my][mx] = 0;
+                        continue;
                     }
                     else{
                         return true;
                     }
+                }
+
+                if(maze[my][mx] === 4){
+                    items.key2 = true;
+                    maze[my][mx] = 0;
+                    continue;
+                }
+
+                if(maze[my][mx] === 5){
+                    if(items.key2){
+                        items.key2 = false;
+                        maze[my][mx] = 0;
+                        continue;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+
+                if(maze[my][mx] === 6){
+                    cleared = true;
                 }
             }
         }
@@ -127,26 +194,80 @@ function mazedraw(){
     for(let my = 0; my < maze.length; my++){
         for(let mx = 0; mx < maze[0].length; mx++){
             if(maze[my][mx] === 0) continue;
-            if(maze[my][mx] === 1) ctx.fillStyle = "#808080";
-            if(maze[my][mx] === 2){
-                ctx.fillStyle = "#ffff00"
 
-                const r = (mazeSize / 2) * 0.5;
-                const cx = mx * mazeSize - player.pos.x + (canvas.width / 2) + mazeSize / 2;
-                const cy = my * mazeSize - player.pos.y +(canvas.height / 2) + mazeSize / 2;
+            const r = (mazeSize / 2) * 0.5;
+            let cx = mx * mazeSize - player.pos.x + (canvas.width / 2);
+            let cy = my * mazeSize - player.pos.y +(canvas.height / 2);
+
+            if(maze[my][mx] === 1){
+                ctx.fillStyle = "#808080";
+                
+                ctx.fillRect(
+                    cx - 0.4,
+                    cy - 0.4,
+                    mazeSize + 0.8,
+                    mazeSize + 0.8
+                );
+            }
+
+            if(maze[my][mx] === 6){
+                ctx.fillStyle = `hsl(${goalHue}, 100%, 60%)`;
+                
+                ctx.fillRect(
+                    cx - 0.4,
+                    cy - 0.4,
+                    mazeSize + 0.8,
+                    mazeSize + 0.8
+                );
+            }
+
+            if(maze[my][mx] === 2){
+                ctx.fillStyle = "#ffff00";
 
                 ctx.beginPath();
-                ctx.arc(cx,cy,r,0,Math.PI * 2);
+                ctx.arc(cx + (mazeSize / 2),cy + (mazeSize / 2),r,0,Math.PI * 2);
                 ctx.fill();
-                continue;
             }
-            ctx.fillRect(
-                mx * mazeSize - player.pos.x + (canvas.width / 2) - 0.4,
-                my * mazeSize - player.pos.y + (canvas.height / 2) - 0.4,
+
+            if(maze[my][mx] === 4){
+                ctx.fillStyle = "#ff00ff";
+
+                ctx.beginPath();
+                ctx.arc(cx + (mazeSize / 2),cy + (mazeSize / 2),r,0,Math.PI * 2);
+                ctx.fill();
+            }
+
+            if(maze[my][mx] === 3){
+                ctx.fillStyle = "#ffff00";
+
+                ctx.fillRect(
+                cx - 0.4,
+                cy - 0.4,
                 mazeSize + 0.8,
-                mazeSize + 0.8
-            );
-            
+                mazeSize + 0.8);
+
+                ctx.fillStyle = "#000000";
+
+                ctx.beginPath();
+                ctx.arc(cx + (mazeSize / 2),cy + (mazeSize / 2),r,0,Math.PI * 2);
+                ctx.fill();
+            }
+
+            if(maze[my][mx] === 5){
+                ctx.fillStyle = "#ff00ff";
+
+                ctx.fillRect(
+                cx - 0.4,
+                cy - 0.4,
+                mazeSize + 0.8,
+                mazeSize + 0.8);
+
+                ctx.fillStyle = "#000000";
+
+                ctx.beginPath();
+                ctx.arc(cx + (mazeSize / 2),cy + (mazeSize / 2),r,0,Math.PI * 2);
+                ctx.fill();
+            }
         }
     }
 }

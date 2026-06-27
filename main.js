@@ -78,7 +78,7 @@ function move(){
 }
 
 function playerdraw(){
-    ctx.fillStyle = "#0040ff";
+    ctx.fillStyle = "#00ff40";
     ctx.fillRect((canvas.width) / 2, (canvas.height) / 2, player.size, player.size);
 }
 
@@ -92,7 +92,7 @@ function checkCollision(newX, newY){
                 if(
                     newX < wx + mazeSize + 0.4 &&
                     newX + player.size > wx - 0.4 &&
-                    newY < wy + mazeSize +0.4 &&
+                    newY < wy + mazeSize + 0.4 &&
                     newY + player.size > wy - 0.4
                 ){
                  return true;
@@ -105,7 +105,7 @@ function checkCollision(newX, newY){
 function mazedraw(){
     for(let my = 0; my < maze.length; my++){
         for(let mx = 0; mx < maze[0].length; mx++){
-            if(maze[my][mx]===1){
+            if(maze[my][mx] === 1){
                 ctx.fillStyle = "#808080";
                 ctx.fillRect(
                     mx * mazeSize - player.pos.x + (canvas.width / 2) - 0.4,
